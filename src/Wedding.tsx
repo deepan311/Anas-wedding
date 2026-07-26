@@ -491,7 +491,7 @@ const WeddingLanding: React.FC = () => {
                                                 className="text-[11px] uppercase tracking-[0.3em] text-[#F6EFE0]/70"
                                                 style={{ fontFamily: "'Poppins', sans-serif" }}
                                             >
-                                                Tap to open
+
                                             </motion.p>
                                         </motion.div>
                                     )}
@@ -683,7 +683,7 @@ const WeddingLanding: React.FC = () => {
                                 className="mt-3 text-[11px] uppercase tracking-widest text-[#F0D98C]"
                                 style={{ fontFamily: "'Poppins', sans-serif" }}
                             >
-                                October 24, 2026 • 10:00 AM
+                                October 11, 2026 • 10:00 AM
                             </p>
                             <p
                                 className="mt-2 max-w-[240px] text-[11px] leading-relaxed text-[#F6EFE0]/75"
