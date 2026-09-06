@@ -14,71 +14,50 @@ import {
 import { FiVolume2, FiVolumeX, FiMapPin, FiChevronDown } from "react-icons/fi";
 import introVideoPath from "./assets/intro.mp4";
 import loopVideoPath from "./assets/loops.mp4";
+import introPoster from "./assets/intro-poster.jpg";
 import qr from "./assets/qr.png";
 
-import bcm from "./assets/bcm.wav";
+import bcm from "./assets/new-bg-a.mp3";
 /* ------------------------------------------------------------------ */
-/*  Dummy assets — swap these for the real files before shipping.      */
+/*  Assets                                                             */
 /* ------------------------------------------------------------------ */
 const ASSETS = {
     introVideo: introVideoPath,
     loopVideo: loopVideoPath,
+    introPoster,
     qrImage: qr,
     nasheedAudio: bcm,
-    googleMapUrl:
-        "https://maps.app.goo.gl/p2dJU2om5vQNSyEy6",
+    googleMapUrl: "https://maps.app.goo.gl/p2dJU2om5vQNSyEy6",
 };
 
 /* ------------------------------------------------------------------ */
-/*  Design tokens                                                      */
-/*  bg-deep   #0A2019  near-black emerald, primary background          */
-/*  bg-panel  #123A2E  lighter emerald, gradients / panels             */
-/*  gold      #CBA135  antique gold, borders + accents                 */
-/*  gold-lt   #F0D98C  soft gold glow / highlight text                 */
-/*  ivory     #F6EFE0  primary text on dark                            */
-/*  maroon    #4A1620  secondary accent, quote backdrop                */
+/*  Design tokens — dusty rose + antique gold                          */
+/*  deep    #3A2E2E  cocoa-mauve, page ground behind the card          */
+/*  rose    #8B6D6D  pale dusty rose, primary surface                  */
+/*  panel   #5A4646  deeper mauve, cards on the rose surface           */
+/*  ivory   #F7F1EA  warm ivory, primary text                          */
+/*  gold    #D8B26A  antique gold, primary metallic accent             */
+/*  gold-lt #EBD5A0  soft gold, glow / highlight                       */
+/*  rose-lt #E7D6D6  blush highlight for sub-labels                    */
+/*  plum    #4A3437  deep accent, quote backdrop                       */
 /* ------------------------------------------------------------------ */
 
 const FONT_LINK_ID = "wedding-invite-fonts";
+const FONT_HREF =
+    "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus&family=Jost:wght@300;400;500&family=Great+Vibes&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600&display=swap";
+
+const FONT_DISPLAY = "'Cormorant Garamond', 'Georgia', serif";
+const FONT_SCRIPT = "'Great Vibes', 'Segoe Script', cursive";
+const FONT_LABEL = "'Marcellus', 'Cormorant Garamond', serif";
+const FONT_BODY = "'Jost', 'Helvetica Neue', system-ui, sans-serif";
+const FONT_ARABIC = "'Noto Naskh Arabic', 'Amiri', serif";
+const FONT_QURAN = "'Scheherazade New', 'Amiri', serif";
 
 type SectionId = "hero" | "family" | "location" | "quote";
 
 /* ------------------------------------------------------------------ */
 /*  Small decorative primitives                                        */
 /* ------------------------------------------------------------------ */
-
-const RubElHizb: React.FC<{ size?: number; className?: string }> = ({
-    size = 120,
-    className = "",
-}) => (
-    <svg
-        viewBox="0 0 100 100"
-        width={size}
-        height={size}
-        className={className}
-        fill="none"
-        aria-hidden="true"
-    >
-        <rect
-            x="22"
-            y="22"
-            width="56"
-            height="56"
-            stroke="currentColor"
-            strokeWidth="1.4"
-        />
-        <rect
-            x="22"
-            y="22"
-            width="56"
-            height="56"
-            stroke="currentColor"
-            strokeWidth="1.4"
-            transform="rotate(45 50 50)"
-        />
-        <circle cx="50" cy="50" r="36" stroke="currentColor" strokeWidth="0.6" opacity={0.6} />
-    </svg>
-);
 
 const Sparkle: React.FC<{ className?: string }> = ({ className = "" }) => (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
@@ -88,31 +67,21 @@ const Sparkle: React.FC<{ className?: string }> = ({ className = "" }) => (
 
 const CornerOrnament: React.FC<{ className?: string }> = ({ className = "" }) => (
     <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
-        <path
-            d="M2 2 H20 M2 2 V20"
-            stroke="currentColor"
-            strokeWidth="1.2"
-            strokeLinecap="round"
-        />
-        <path
-            d="M2 2 C 18 4, 26 14, 28 30"
-            stroke="currentColor"
-            strokeWidth="1"
-            opacity={0.7}
-        />
+        <path d="M2 2 H20 M2 2 V20" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M2 2 C 18 4, 26 14, 28 30" stroke="currentColor" strokeWidth="1" opacity={0.7} />
         <circle cx="28" cy="30" r="2" fill="currentColor" opacity={0.8} />
     </svg>
 );
 
 const Divider: React.FC<{ className?: string }> = ({ className = "" }) => (
     <div className={`flex items-center justify-center gap-3 ${className}`}>
-        <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#CBA135]/70" />
-        <Sparkle className="h-3 w-3 text-[#CBA135]" />
-        <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#CBA135]/70" />
+        <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#D8B26A]/80" />
+        <Sparkle className="h-3 w-3 text-[#D8B26A]" />
+        <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D8B26A]/80" />
     </div>
 );
 
-/** Ambient lantern-glow particle drifting slowly in the background. */
+/** Ambient gilded-glow particle drifting slowly in the background. */
 const FloatingGlow: React.FC<{
     top: string;
     left: string;
@@ -128,7 +97,7 @@ const FloatingGlow: React.FC<{
             width: size,
             height: size,
             background:
-                "radial-gradient(circle, rgba(240,217,140,0.35) 0%, rgba(203,161,53,0.08) 55%, rgba(203,161,53,0) 75%)",
+                "radial-gradient(circle, rgba(235,213,160,0.45) 0%, rgba(216,178,106,0.12) 55%, rgba(216,178,106,0) 75%)",
             filter: "blur(2px)",
         }}
         animate={
@@ -165,6 +134,214 @@ const Reveal: React.FC<{
 };
 
 /* ------------------------------------------------------------------ */
+/*  Scratch-to-reveal date card                                        */
+/* ------------------------------------------------------------------ */
+
+const SCRATCH_DATE = {
+    weekday: "Sunday",
+    day: "11",
+    monthYear: "October 2026",
+    time: "10:00 AM onwards",
+};
+
+const ScratchDateCard: React.FC<{ reduceMotion: boolean }> = ({ reduceMotion }) => {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const wrapRef = useRef<HTMLDivElement | null>(null);
+    const [revealed, setRevealed] = useState(reduceMotion);
+    const drawing = useRef(false);
+    const last = useRef<{ x: number; y: number } | null>(null);
+    const moves = useRef(0);
+
+    /* paint the foil overlay once */
+    useEffect(() => {
+        if (reduceMotion) return;
+        const canvas = canvasRef.current;
+        const wrap = wrapRef.current;
+        if (!canvas || !wrap) return;
+
+        let disposed = false;
+        const raf = requestAnimationFrame(() => {
+            if (disposed) return;
+            const rect = wrap.getBoundingClientRect();
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = Math.round(rect.width * dpr);
+            canvas.height = Math.round(rect.height * dpr);
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            ctx.scale(dpr, dpr);
+
+            const g = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+            g.addColorStop(0, "#B89E9E");
+            g.addColorStop(0.45, "#D9C4C4");
+            g.addColorStop(1, "#A88C8C");
+            ctx.fillStyle = g;
+            ctx.fillRect(0, 0, rect.width, rect.height);
+
+            // gilded flecks
+            ctx.fillStyle = "rgba(216,178,106,0.55)";
+            for (let i = 0; i < 40; i++) {
+                ctx.beginPath();
+                ctx.arc(
+                    Math.random() * rect.width,
+                    Math.random() * rect.height,
+                    Math.random() * 1.6,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fill();
+            }
+
+            ctx.fillStyle = "#43302F";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.font = "13px 'Marcellus', serif";
+            ctx.fillText("✦  SCRATCH HERE  ✦", rect.width / 2, rect.height / 2 - 8);
+            ctx.font = "10px 'Jost', sans-serif";
+            ctx.fillText("reveal the date", rect.width / 2, rect.height / 2 + 12);
+
+            ctx.globalCompositeOperation = "destination-out";
+        });
+        return () => {
+            disposed = true;
+            cancelAnimationFrame(raf);
+        };
+    }, [reduceMotion]);
+
+    const clearedFraction = useCallback(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext("2d");
+        if (!canvas || !ctx) return 0;
+        const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const stride = 4 * 8; // sample every 8th pixel
+        let cleared = 0;
+        let total = 0;
+        for (let i = 3; i < data.length; i += stride) {
+            total++;
+            if (data[i] === 0) cleared++;
+        }
+        return total ? cleared / total : 0;
+    }, []);
+
+    const strokeAt = useCallback((x: number, y: number) => {
+        const ctx = canvasRef.current?.getContext("2d");
+        if (!ctx) return;
+        ctx.lineWidth = 38;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        if (last.current) {
+            ctx.beginPath();
+            ctx.moveTo(last.current.x, last.current.y);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
+        ctx.beginPath();
+        ctx.arc(x, y, 19, 0, Math.PI * 2);
+        ctx.fill();
+        last.current = { x, y };
+    }, []);
+
+    const localPos = (e: React.PointerEvent) => {
+        const rect = canvasRef.current!.getBoundingClientRect();
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    };
+
+    const onDown = (e: React.PointerEvent) => {
+        if (revealed) return;
+        drawing.current = true;
+        last.current = null;
+        (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
+        const { x, y } = localPos(e);
+        strokeAt(x, y);
+    };
+
+    const onMove = (e: React.PointerEvent) => {
+        if (!drawing.current || revealed) return;
+        e.preventDefault();
+        const { x, y } = localPos(e);
+        strokeAt(x, y);
+        moves.current += 1;
+        if (moves.current % 6 === 0 && clearedFraction() > 0.5) setRevealed(true);
+    };
+
+    const onUp = () => {
+        if (!drawing.current) return;
+        drawing.current = false;
+        last.current = null;
+        if (!revealed && clearedFraction() > 0.42) setRevealed(true);
+    };
+
+    return (
+        <Reveal className="flex w-full flex-col items-center gap-3" delay={0.05}>
+            <span
+                className="text-[11px] uppercase tracking-[0.4em] text-[#EBD5A0]"
+                style={{ fontFamily: FONT_LABEL }}
+            >
+                Save the Date
+            </span>
+
+            <div
+                ref={wrapRef}
+                className="relative h-44 w-64 overflow-hidden rounded-2xl border border-[#D8B26A]/55 bg-gradient-to-br from-[#9C8383] to-[#6F5757] shadow-[0_18px_50px_-18px_rgba(216,178,106,0.5)]"
+            >
+                {/* revealed date */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center">
+                    <span
+                        className="text-[11px] uppercase tracking-[0.35em] text-[#EBD5A0]"
+                        style={{ fontFamily: FONT_BODY }}
+                    >
+                        {SCRATCH_DATE.weekday}
+                    </span>
+                    <span
+                        className="text-[58px] font-medium leading-none text-[#F7F1EA]"
+                        style={{ fontFamily: FONT_BODY }}
+                    >
+                        {SCRATCH_DATE.day}
+                    </span>
+                    <span
+                        className="text-sm tracking-[0.22em] text-[#F7F1EA]"
+                        style={{ fontFamily: FONT_BODY }}
+                    >
+                        {SCRATCH_DATE.monthYear.toUpperCase()}
+                    </span>
+                    <span
+                        className="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#F7F1EA]/65"
+                        style={{ fontFamily: FONT_BODY }}
+                    >
+                        {SCRATCH_DATE.time}
+                    </span>
+                </div>
+
+                {/* foil scratch layer */}
+                {!reduceMotion && (
+                    <canvas
+                        ref={canvasRef}
+                        onPointerDown={onDown}
+                        onPointerMove={onMove}
+                        onPointerUp={onUp}
+                        onPointerLeave={onUp}
+                        onPointerCancel={onUp}
+                        className={`absolute inset-0 h-full w-full cursor-pointer transition-opacity duration-700 ${revealed ? "pointer-events-none opacity-0" : "opacity-100"
+                            }`}
+                        style={{ touchAction: "none" }}
+                    />
+                )}
+            </div>
+
+            {!revealed && !reduceMotion && (
+                <button
+                    type="button"
+                    onClick={() => setRevealed(true)}
+                    className="text-[9px] uppercase tracking-[0.25em] text-[#F7F1EA]/45 underline-offset-4 transition-colors hover:text-[#F7F1EA]/75 hover:underline"
+                    style={{ fontFamily: FONT_BODY }}
+                >
+                    skip &amp; reveal
+                </button>
+            )}
+        </Reveal>
+    );
+};
+
+/* ------------------------------------------------------------------ */
 /*  Countdown Component                                                */
 /* ------------------------------------------------------------------ */
 
@@ -172,7 +349,6 @@ const TARGET_DATE = new Date("2026-10-11T10:00:00+05:30").getTime();
 
 const CountdownTimer: React.FC = () => {
     const [timeLeft, setTimeLeft] = useState(0);
-    const reduceMotion = !!useReducedMotion();
 
     useEffect(() => {
         const updateTimer = () => setTimeLeft(Math.max(0, TARGET_DATE - Date.now()));
@@ -187,42 +363,40 @@ const CountdownTimer: React.FC = () => {
     const seconds = Math.floor((timeLeft / 1000) % 60);
 
     return (
-        <Reveal className="flex w-full flex-col items-center gap-6 py-2" delay={0.1}>
-            {/* Calendar Design for the Date */}
-            <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-xl border border-[#CBA135]/40 bg-[#0A2019]/80 px-8 py-3 shadow-lg backdrop-blur-sm">
-                <div className="absolute top-0 h-1 w-full bg-[#CBA135]" />
-                <span className="mt-1 text-[10px] uppercase tracking-widest text-[#F0D98C]" style={{ fontFamily: "'Poppins', sans-serif" }}>October</span>
-                <span className="text-4xl text-[#F6EFE0]" style={{ fontFamily: "'Amiri', serif" }}>11</span>
-                <span className="text-[10px] tracking-widest text-[#F0D98C]" style={{ fontFamily: "'Poppins', sans-serif" }}>2026</span>
-                <span className="mt-1 text-[10px] uppercase tracking-widest text-[#F6EFE0]/60" style={{ fontFamily: "'Poppins', sans-serif" }}>10:00 AM</span>
-            </div>
-
-            {/* Countdown Grid */}
-            <div className="flex gap-5 text-center">
+        <Reveal className="flex w-full flex-col items-center gap-5 py-1" delay={0.1}>
+            <div className="flex gap-4 text-center">
                 {[
                     { label: "Days", value: days },
                     { label: "Hrs", value: hours },
                     { label: "Mins", value: minutes },
                     { label: "Secs", value: seconds },
                 ].map((item) => (
-                    <div key={item.label} className="flex flex-col items-center">
-                        <span className="text-2xl text-[#F6EFE0]" style={{ fontFamily: "'Amiri', serif" }}>
+                    <div
+                        key={item.label}
+                        className="flex min-w-[46px] flex-col items-center rounded-lg border border-[#D8B26A]/35 bg-[#5A4646]/45 px-2 py-2 backdrop-blur-sm"
+                    >
+                        <span
+                            className="text-2xl text-[#F7F1EA]"
+                            style={{ fontFamily: FONT_DISPLAY, fontWeight: 600 }}
+                        >
                             {String(item.value).padStart(2, "0")}
                         </span>
-                        <span className="text-[9px] uppercase tracking-widest text-[#CBA135]">
+                        <span
+                            className="text-[8px] uppercase tracking-[0.2em] text-[#EBD5A0]"
+                            style={{ fontFamily: FONT_LABEL }}
+                        >
                             {item.label}
                         </span>
                     </div>
                 ))}
             </div>
 
-            {/* Add to Calendar Button */}
             <a
                 href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+of+Mohamed+Anas+and+Rukkiya+Begam&dates=20261011T043000Z/20261011T123000Z&details=Join+us+for+our+wedding!&location=Annamailayar+Mahal,+Udayar+Kovil,+Nagai+Main+Road"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1 rounded-full border border-[#CBA135]/60 bg-[#CBA135]/10 px-6 py-2.5 text-[10px] uppercase tracking-[0.2em] text-[#F0D98C] transition-colors hover:bg-[#CBA135]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0D98C]"
-                style={{ fontFamily: "'Poppins', sans-serif" }}
+                className="rounded-full border border-[#D8B26A]/70 bg-[#D8B26A]/12 px-6 py-2.5 text-[11px] uppercase tracking-[0.2em] text-[#F7F1EA] transition-colors hover:bg-[#D8B26A]/22 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EBD5A0]"
+                style={{ fontFamily: FONT_LABEL }}
             >
                 Add to Calendar
             </a>
@@ -251,6 +425,7 @@ const WeddingLanding: React.FC = () => {
     /* ---- state --------------------------------------------------------*/
     const [sealOpened, setSealOpened] = useState(false);
     const [showInviteText, setShowInviteText] = useState(false);
+    const [showNames, setShowNames] = useState(false);
     const [videoStage, setVideoStage] = useState<"intro" | "loop">("intro");
     const [musicOn, setMusicOn] = useState(false);
     const [activeSection, setActiveSection] = useState<SectionId>("hero");
@@ -261,9 +436,17 @@ const WeddingLanding: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        if (introVideoRef.current && introVideoRef.current.readyState >= 3) {
+        // If the first frame is already available, drop the loader immediately.
+        if (introVideoRef.current && introVideoRef.current.readyState >= 2) {
             setIsVideoLoaded(true);
+            return;
         }
+        // iOS Safari defers video downloads until play() is called, so
+        // loadeddata / canplaythrough may never fire while the seal is shown.
+        // The poster frame covers the "initial screen" on iOS; this timeout
+        // makes sure the loading overlay never traps the user.
+        const fallback = window.setTimeout(() => setIsVideoLoaded(true), 2500);
+        return () => window.clearTimeout(fallback);
     }, []);
 
     /* ---- load display fonts once --------------------------------------*/
@@ -272,8 +455,7 @@ const WeddingLanding: React.FC = () => {
         const link = document.createElement("link");
         link.id = FONT_LINK_ID;
         link.rel = "stylesheet";
-        link.href =
-            "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap";
+        link.href = FONT_HREF;
         document.head.appendChild(link);
     }, []);
 
@@ -292,10 +474,14 @@ const WeddingLanding: React.FC = () => {
 
     useEffect(() => {
         if (!sealOpened) return;
+        // 1) the welcome heading animates in first
         const revealText = window.setTimeout(() => setShowInviteText(true), 4000);
+        // 2) then the groom + bride names load in, staggered
+        const revealNames = window.setTimeout(() => setShowNames(true), 5900);
         const switchVideo = window.setTimeout(() => setVideoStage("loop"), 10000);
         return () => {
             window.clearTimeout(revealText);
+            window.clearTimeout(revealNames);
             window.clearTimeout(switchVideo);
         };
     }, [sealOpened]);
@@ -370,28 +556,35 @@ const WeddingLanding: React.FC = () => {
     ];
 
     return (
-        <div className="flex min-h-screen w-full items-center justify-center bg-[#060F0C] p-0 sm:p-6">
+        <div
+            className="flex min-h-screen w-full items-center justify-center bg-[#3A2E2E] p-0 sm:p-6"
+            style={{ fontFamily: FONT_BODY }}
+        >
             <AnimatePresence>
                 {!isVideoLoaded && (
                     <motion.div
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#060F0C]"
+                        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#8B6D6D]"
                     >
                         <div className="flex flex-col items-center gap-4">
-                            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#CBA135]/30 border-t-[#CBA135]" />
-                            <p className="text-xs uppercase tracking-[0.2em] text-[#F0D98C]/70" style={{ fontFamily: "'Poppins', sans-serif" }}>
-                                Loading...
+                            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#EBD5A0]/35 border-t-[#EBD5A0]" />
+                            <p
+                                className="text-xs uppercase tracking-[0.3em] text-[#F7F1EA]/80"
+                                style={{ fontFamily: FONT_LABEL }}
+                            >
+                                Loading
                             </p>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
+
             <style>{`
         @keyframes wi-pulse-glow {
-          0%, 100% { filter: drop-shadow(0 0 6px rgba(203,161,53,0.55)); }
-          50% { filter: drop-shadow(0 0 18px rgba(240,217,140,0.85)); }
+          0%, 100% { filter: drop-shadow(0 0 6px rgba(216,178,106,0.55)); }
+          50% { filter: drop-shadow(0 0 20px rgba(235,213,160,0.9)); }
         }
         .wi-seal-glow { animation: wi-pulse-glow 2.6s ease-in-out infinite; }
         .wi-scroll::-webkit-scrollbar { display: none; }
@@ -405,7 +598,7 @@ const WeddingLanding: React.FC = () => {
           Invitation "card" — edge-to-edge on mobile, a framed digital
           card on larger screens.
       --------------------------------------------------------------- */}
-            <div className="relative h-screen w-full overflow-hidden bg-[#0A2019] text-[#F6EFE0] shadow-[0_0_80px_rgba(0,0,0,0.6)] sm:h-[92vh] sm:max-h-[880px] sm:w-[420px] sm:rounded-[2rem] sm:ring-1 sm:ring-[#CBA135]/40">
+            <div className="relative h-screen w-full overflow-hidden bg-[#8B6D6D] text-[#F7F1EA] shadow-[0_0_80px_rgba(0,0,0,0.5)] sm:h-[92vh] sm:max-h-[880px] sm:w-[420px] sm:rounded-[2rem] sm:ring-1 sm:ring-[#D8B26A]/45">
                 {/* Scrollable snap sections */}
                 <div
                     ref={scrollContainerRef}
@@ -416,13 +609,19 @@ const WeddingLanding: React.FC = () => {
                         ref={heroRef}
                         className="relative flex h-full min-h-screen w-full snap-start flex-col items-center justify-between overflow-hidden sm:min-h-full"
                     >
-                        {/* Video backgrounds */}
+                        {/* Video backgrounds — poster shows the initial frame on iOS
+                            before playback begins. */}
                         <video
                             ref={introVideoRef}
                             muted
                             playsInline
+                            preload="auto"
+                            poster={ASSETS.introPoster}
+                            onLoadedMetadata={handleVideoLoaded}
                             onLoadedData={handleVideoLoaded}
+                            onCanPlay={handleVideoLoaded}
                             onCanPlayThrough={handleVideoLoaded}
+                            onError={handleVideoLoaded}
                             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[4000ms] ${videoStage === "intro" ? "opacity-100" : "opacity-0"
                                 }`}
                             src={ASSETS.introVideo}
@@ -432,29 +631,32 @@ const WeddingLanding: React.FC = () => {
                             muted
                             playsInline
                             loop
+                            preload="none"
                             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[4000ms] ${videoStage === "loop" ? "opacity-50" : "opacity-0"
                                 }`}
                             src={ASSETS.loopVideo}
                         />
-                        {/* Overlays for legibility */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-[#060F0C]/40 via-[#0A2019]/30 to-[#060F0C]/40" />
+                        {/* Overlays for legibility — soft rose wash */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-[#6F5757]/25 via-transparent to-[#4A3437]/45" />
+                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(74,52,55,0.5)_100%)]" />
+
                         {/* Ambient particles */}
                         <FloatingGlow top="12%" left="18%" size={90} reduceMotion={reduceMotion} />
                         <FloatingGlow top="65%" left="78%" size={70} delay={1.4} reduceMotion={reduceMotion} />
                         <FloatingGlow top="80%" left="15%" size={60} delay={2.6} reduceMotion={reduceMotion} />
 
                         {/* Corner ornaments */}
-                        <CornerOrnament className="absolute left-3 top-3 h-8 w-8 text-[#CBA135]/70" />
-                        <CornerOrnament className="absolute right-3 top-3 h-8 w-8 -scale-x-100 text-[#CBA135]/70" />
-                        <CornerOrnament className="absolute bottom-3 left-3 h-8 w-8 -scale-y-100 text-[#CBA135]/70" />
-                        <CornerOrnament className="absolute bottom-3 right-3 h-8 w-8 -scale-x-100 -scale-y-100 text-[#CBA135]/70" />
+                        <CornerOrnament className="absolute left-3 top-3 h-8 w-8 text-[#EBD5A0]/80" />
+                        <CornerOrnament className="absolute right-3 top-3 h-8 w-8 -scale-x-100 text-[#EBD5A0]/80" />
+                        <CornerOrnament className="absolute bottom-3 left-3 h-8 w-8 -scale-y-100 text-[#EBD5A0]/80" />
+                        <CornerOrnament className="absolute bottom-3 right-3 h-8 w-8 -scale-x-100 -scale-y-100 text-[#EBD5A0]/80" />
 
                         {/* Content column */}
                         <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-6 py-10 text-center">
                             {/* Bismillah eyebrow */}
                             <p
-                                className="text-sm tracking-[0.2em] text-[#F0D98C]/90"
-                                style={{ fontFamily: "'Noto Naskh Arabic', serif" }}
+                                className="text-sm tracking-[0.2em] text-[#F7F1EA]/90 drop-shadow-[0_1px_6px_rgba(74,52,55,0.6)]"
+                                style={{ fontFamily: FONT_ARABIC }}
                             >
                                 بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                             </p>
@@ -469,29 +671,23 @@ const WeddingLanding: React.FC = () => {
                                             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                                             className="flex flex-col items-center gap-4"
                                         >
+                                            {/* transparent tap target over the video's own gold wax seal */}
                                             <button
                                                 type="button"
                                                 aria-label="Open the invitation"
                                                 onClick={handleSealTap}
-                                                className="wi-seal-glow relative flex h-32 w-32 items-center justify-center rounded-full text-[#F0D98C] outline-none ring-0 transition-transform duration-300 hover:scale-105 focus-visible:ring-2 focus-visible:ring-[#F0D98C]"
+                                                className="wi-seal-glow relative flex h-36 w-36 items-center justify-center rounded-full outline-none transition-transform duration-300 hover:scale-105 focus-visible:ring-2 focus-visible:ring-[#EBD5A0]"
                                             >
-                                                {/* <RubElHizb size={128} className="absolute inset-0 h-full w-full text-[#CBA135]" /> */}
-                                                {/* <span
-                                                    className="text-[11px] leading-tight tracking-wide text-[#F0D98C]"
-                                                    style={{ fontFamily: "'Scheherazade New', serif" }}
-                                                >
-                                                    دعوة
-                                                    <br />
-                                                    زفاف
-                                                </span> */}
+                                                <span className="absolute inset-0 rounded-full border border-[#EBD5A0]/40" />
+                                                <span className="absolute inset-2 rounded-full border border-[#EBD5A0]/20" />
                                             </button>
                                             <motion.p
                                                 animate={reduceMotion ? {} : { opacity: [0.5, 1, 0.5] }}
                                                 transition={{ duration: 2.2, repeat: Infinity }}
-                                                className="text-[11px] uppercase tracking-[0.3em] text-[#F6EFE0]/70"
-                                                style={{ fontFamily: "'Poppins', sans-serif" }}
+                                                className="text-[11px] uppercase tracking-[0.35em] text-[#F7F1EA]/85 drop-shadow-[0_1px_6px_rgba(74,52,55,0.6)]"
+                                                style={{ fontFamily: FONT_LABEL }}
                                             >
-
+                                                Tap to open
                                             </motion.p>
                                         </motion.div>
                                     )}
@@ -504,53 +700,82 @@ const WeddingLanding: React.FC = () => {
                                             initial={{ opacity: 0, y: 18 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-                                            className="flex flex-col items-center gap-5"
+                                            className="flex flex-col items-center gap-5 rounded-3xl bg-[#4A3437]/35 px-5 py-6 backdrop-blur-[3px]"
                                         >
-                                            <p
-                                                className="max-w-[260px] text-sm leading-relaxed text-[#F6EFE0]/85"
-                                                style={{ fontFamily: "'Poppins', sans-serif" }}
+                                            <motion.p
+                                                initial={{ opacity: 0, y: 12 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                                                className="max-w-[260px] text-[13px] leading-relaxed tracking-wide text-[#F7F1EA]/90"
+                                                style={{ fontFamily: FONT_BODY }}
                                             >
                                                 We are honored to welcome you to the wedding ceremony of
-                                            </p>
+                                            </motion.p>
 
-                                            <div className="flex flex-col items-center gap-1">
-                                                <span
-                                                    className="text-xs uppercase tracking-[0.35em] text-[#CBA135]"
-                                                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                                            {/* Names stay mounted so the card keeps its full
+                                                height from the start — only their opacity
+                                                animates in, staggered, once showNames flips. */}
+                                            <div className="flex flex-col items-center gap-5">
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: 16 }}
+                                                    animate={showNames ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                                                    transition={{ duration: 0.8, delay: showNames ? 0.05 : 0, ease: [0.22, 1, 0.36, 1] }}
+                                                    className="flex flex-col items-center gap-1"
                                                 >
-                                                    Groom
-                                                </span>
-                                                <h2
-                                                    className="text-6xl text-[#F6EFE0] mt-2 mb-1"
-                                                    style={{ fontFamily: "'Great Vibes', cursive" }}
-                                                >
-                                                    Mohamed Anas
-                                                </h2>
-                                                <span className="text-xs tracking-widest text-[#F6EFE0]/60">B.E.</span>
-                                            </div>
+                                                    <span
+                                                        className="text-[11px] uppercase tracking-[0.35em] text-[#EBD5A0]"
+                                                        style={{ fontFamily: FONT_LABEL }}
+                                                    >
+                                                        Groom
+                                                    </span>
+                                                    <h2
+                                                        className="mb-1 mt-2 text-6xl leading-none text-[#F7F1EA]"
+                                                        style={{ fontFamily: FONT_SCRIPT }}
+                                                    >
+                                                        Mohamed Anas
+                                                    </h2>
+                                                    <span className="text-[11px] tracking-[0.2em] text-[#F7F1EA]/60">
+                                                        B.E.
+                                                    </span>
+                                                </motion.div>
 
-                                            <Divider className="my-1" />
-                                            <span
-                                                className="-mt-3 text-lg italic text-[#F0D98C]"
-                                                style={{ fontFamily: "'Amiri', serif" }}
-                                            >
-                                                weds
-                                            </span>
+                                                <motion.div
+                                                    initial={{ opacity: 0 }}
+                                                    animate={showNames ? { opacity: 1 } : { opacity: 0 }}
+                                                    transition={{ duration: 0.6, delay: showNames ? 0.65 : 0 }}
+                                                    className="flex flex-col items-center gap-1"
+                                                >
+                                                    <Divider className="my-1" />
+                                                    <span
+                                                        className="-mt-3 text-xl italic text-[#EBD5A0]"
+                                                        style={{ fontFamily: FONT_DISPLAY }}
+                                                    >
+                                                        weds
+                                                    </span>
+                                                </motion.div>
 
-                                            <div className="flex flex-col items-center gap-1">
-                                                <span
-                                                    className="text-xs uppercase tracking-[0.35em] text-[#CBA135]"
-                                                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: 16 }}
+                                                    animate={showNames ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                                                    transition={{ duration: 0.8, delay: showNames ? 1.1 : 0, ease: [0.22, 1, 0.36, 1] }}
+                                                    className="flex flex-col items-center gap-1"
                                                 >
-                                                    Bride
-                                                </span>
-                                                <h2
-                                                    className="text-6xl text-[#F6EFE0] mt-2 mb-1"
-                                                    style={{ fontFamily: "'Great Vibes', cursive" }}
-                                                >
-                                                    Rukkiya Begam
-                                                </h2>
-                                                <span className="text-xs tracking-widest text-[#F6EFE0]/60">B.Sc.</span>
+                                                    <span
+                                                        className="text-[11px] uppercase tracking-[0.35em] text-[#EBD5A0]"
+                                                        style={{ fontFamily: FONT_LABEL }}
+                                                    >
+                                                        Bride
+                                                    </span>
+                                                    <h2
+                                                        className="mb-1 mt-2 text-6xl leading-none text-[#F7F1EA]"
+                                                        style={{ fontFamily: FONT_SCRIPT }}
+                                                    >
+                                                        Rukkiya Begam
+                                                    </h2>
+                                                    <span className="text-[11px] tracking-[0.2em] text-[#F7F1EA]/60">
+                                                        B.Sc.
+                                                    </span>
+                                                </motion.div>
                                             </div>
                                         </motion.div>
                                     )}
@@ -559,23 +784,24 @@ const WeddingLanding: React.FC = () => {
 
                             {/* Bottom logistics */}
                             <AnimatePresence>
-                                {showInviteText && (
+                                {showNames && (
                                     <motion.div
                                         initial={{ opacity: 0, y: 12 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.9, delay: 0.3 }}
+                                        transition={{ duration: 0.9, delay: 1.6 }}
                                         className="flex w-full flex-col items-center gap-4 pb-2"
                                     >
                                         <p
-                                            className="text-xs tracking-wide text-[#F6EFE0]/80"
-                                            style={{ fontFamily: "'Poppins', sans-serif" }}
+                                            className="text-[11px] tracking-[0.18em] text-[#F7F1EA]/85 drop-shadow-[0_1px_6px_rgba(74,52,55,0.6)]"
+                                            style={{ fontFamily: FONT_LABEL }}
                                         >
-                                            Date: 11 / Oct / 2026 &nbsp;·&nbsp; Time: 11:00 AM – 12:00 PM
+                                            11 OCT 2026 &nbsp;·&nbsp; 11:00 AM – 12:00 PM
                                         </p>
                                         <button
                                             type="button"
                                             onClick={() => scrollToSection(locationRef)}
-                                            className="flex items-center gap-2 rounded-full border border-[#CBA135]/70 px-5 py-2 text-xs uppercase tracking-[0.2em] text-[#F0D98C] transition-colors hover:bg-[#CBA135]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0D98C]"
+                                            className="flex items-center gap-2 rounded-full border border-[#EBD5A0]/70 bg-[#4A3437]/30 px-5 py-2 text-[11px] uppercase tracking-[0.2em] text-[#F7F1EA] backdrop-blur-sm transition-colors hover:bg-[#EBD5A0]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EBD5A0]"
+                                            style={{ fontFamily: FONT_LABEL }}
                                         >
                                             <FiMapPin className="h-3.5 w-3.5" />
                                             Location
@@ -586,7 +812,7 @@ const WeddingLanding: React.FC = () => {
                                             onClick={() => scrollToSection(familyRef)}
                                             animate={reduceMotion ? {} : { y: [0, 6, 0] }}
                                             transition={{ duration: 1.8, repeat: Infinity }}
-                                            className="mt-1 text-[#F6EFE0]/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0D98C]"
+                                            className="mt-1 text-[#F7F1EA]/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EBD5A0]"
                                         >
                                             <FiChevronDown className="h-5 w-5" />
                                         </motion.button>
@@ -596,66 +822,54 @@ const WeddingLanding: React.FC = () => {
                         </div>
                     </section>
 
-                    {/* ============================= SLIDE 2 — FAMILY ============================= */}
+                    {/* ============================= SLIDE 2 — DATE + FAMILY ============================= */}
                     <section
                         ref={familyRef}
-                        className="relative flex h-full min-h-screen w-full snap-start flex-col items-center justify-center gap-6 overflow-hidden bg-gradient-to-b from-[#0A2019] via-[#0F2E24] to-[#0A2019] px-6 py-10 sm:min-h-full"
+                        className="relative flex h-full min-h-screen w-full snap-start flex-col items-center justify-center gap-6 overflow-hidden bg-gradient-to-b from-[#7C6060] via-[#8B6D6D] to-[#6F5757] px-6 py-10 sm:min-h-full"
                     >
-                        <FloatingGlow top="20%" left="80%" size={80} reduceMotion={reduceMotion} />
-                        <FloatingGlow top="75%" left="10%" size={64} delay={1.8} reduceMotion={reduceMotion} />
+                        <FloatingGlow top="18%" left="82%" size={80} reduceMotion={reduceMotion} />
+                        <FloatingGlow top="76%" left="10%" size={64} delay={1.8} reduceMotion={reduceMotion} />
+
+                        <ScratchDateCard reduceMotion={reduceMotion} />
 
                         <CountdownTimer />
 
                         <Reveal className="flex flex-col items-center gap-2 text-center" delay={0.2}>
                             <Divider />
                             <p
-                                className="mt-2 text-sm text-[#F6EFE0]/75"
-                                style={{ fontFamily: "'Poppins', sans-serif" }}
+                                className="mt-2 text-[13px] tracking-wide text-[#F7F1EA]/80"
+                                style={{ fontFamily: FONT_BODY }}
                             >
                                 With the blessings of our families
                             </p>
                         </Reveal>
 
-                        <div className="flex w-full max-w-xs flex-col gap-6">
-                            <Reveal delay={0.3} className="flex flex-col items-center gap-3 text-center">
-                                <motion.div
-                                    animate={reduceMotion ? {} : { y: [0, -8, 0] }}
-                                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                    className="text-[#CBA135]"
-                                >
-                                    {/* <RubElHizb size={52} /> */}
-                                </motion.div>
+                        <div className="flex w-full max-w-xs flex-col gap-5">
+                            <Reveal delay={0.3} className="flex flex-col items-center gap-1.5 rounded-2xl border border-[#D8B26A]/30 bg-[#5A4646]/35 px-5 py-4 text-center backdrop-blur-sm">
                                 <span
-                                    className="text-xs uppercase tracking-[0.3em] text-[#CBA135]"
-                                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                                    className="text-[10px] uppercase tracking-[0.3em] text-[#EBD5A0]"
+                                    style={{ fontFamily: FONT_LABEL }}
                                 >
                                     Bride&rsquo;s Parents
                                 </span>
                                 <h3
-                                    className="text-2xl leading-snug text-[#F6EFE0]"
-                                    style={{ fontFamily: "'Amiri', serif" }}
+                                    className="text-2xl leading-snug text-[#F7F1EA]"
+                                    style={{ fontFamily: FONT_DISPLAY, fontWeight: 600 }}
                                 >
                                     Asan Khadar &amp; Jainul Arabiya
                                 </h3>
                             </Reveal>
 
-                            <Reveal delay={0.3} className="flex flex-col items-center gap-3 text-center">
-                                <motion.div
-                                    animate={reduceMotion ? {} : { y: [0, -8, 0] }}
-                                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                                    className="text-[#CBA135]"
-                                >
-                                    {/* <RubElHizb size={52} /> */}
-                                </motion.div>
+                            <Reveal delay={0.38} className="flex flex-col items-center gap-1.5 rounded-2xl border border-[#D8B26A]/30 bg-[#5A4646]/35 px-5 py-4 text-center backdrop-blur-sm">
                                 <span
-                                    className="text-xs uppercase tracking-[0.3em] text-[#CBA135]"
-                                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                                    className="text-[10px] uppercase tracking-[0.3em] text-[#EBD5A0]"
+                                    style={{ fontFamily: FONT_LABEL }}
                                 >
                                     Groom&rsquo;s Parents
                                 </span>
                                 <h3
-                                    className="text-2xl leading-snug text-[#F6EFE0]"
-                                    style={{ fontFamily: "'Amiri', serif" }}
+                                    className="text-2xl leading-snug text-[#F7F1EA]"
+                                    style={{ fontFamily: FONT_DISPLAY, fontWeight: 600 }}
                                 >
                                     Yakatali &amp; Sharmila
                                 </h3>
@@ -663,63 +877,98 @@ const WeddingLanding: React.FC = () => {
                         </div>
                     </section>
 
-                    {/* ============================= SLIDE 3 — LOCATION ============================= */}
+                    {/* ============================= SLIDE 3 — VENUE ============================= */}
                     <section
                         ref={locationRef}
-                        className="relative flex h-full min-h-screen w-full snap-start flex-col items-center justify-center gap-8 overflow-hidden bg-[#0A2019] px-6 py-16 sm:min-h-full"
+                        className="relative flex h-full min-h-screen w-full snap-start flex-col items-center justify-center gap-6 overflow-hidden bg-gradient-to-b from-[#7C6060] via-[#8B6D6D] to-[#6F5757] px-6 py-14 sm:min-h-full"
                     >
-                        <CornerOrnament className="absolute left-3 top-3 h-8 w-8 text-[#CBA135]/60" />
-                        <CornerOrnament className="absolute right-3 top-3 h-8 w-8 -scale-x-100 text-[#CBA135]/60" />
+                        <FloatingGlow top="14%" left="12%" size={72} reduceMotion={reduceMotion} />
+                        <FloatingGlow top="72%" left="84%" size={68} delay={1.6} reduceMotion={reduceMotion} />
 
-                        <Reveal className="flex flex-col items-center gap-3 text-center">
+                        <CornerOrnament className="absolute left-3 top-3 h-8 w-8 text-[#EBD5A0]/65" />
+                        <CornerOrnament className="absolute right-3 top-3 h-8 w-8 -scale-x-100 text-[#EBD5A0]/65" />
+
+                        <Reveal className="flex flex-col items-center gap-2 text-center">
                             <Divider />
-                            <h3
-                                className="mt-1 text-2xl text-[#F0D98C]"
-                                style={{ fontFamily: "'Amiri', serif" }}
+                            <span
+                                className="mt-2 text-[11px] uppercase tracking-[0.4em] text-[#EBD5A0]"
+                                style={{ fontFamily: FONT_LABEL }}
                             >
-                                Venue
-                            </h3>
-                            <p
-                                className="mt-3 text-[11px] uppercase tracking-widest text-[#F0D98C]"
-                                style={{ fontFamily: "'Poppins', sans-serif" }}
-                            >
-                                October 11, 2026 • 10:00 AM
-                            </p>
-                            <p
-                                className="mt-2 max-w-[240px] text-[11px] leading-relaxed text-[#F6EFE0]/75"
-                                style={{ fontFamily: "'Poppins', sans-serif" }}
-                            >
-                                Annamailayar Mahal, Udayar Kovil, Nagai Main Road
-                            </p>
+                                The Celebration
+                            </span>
                         </Reveal>
 
-                        <Reveal delay={0.15}>
-                            <div className="rounded-2xl border border-[#CBA135]/50 bg-[#F6EFE0]/5 p-4 shadow-[0_0_30px_rgba(203,161,53,0.15)]">
-                                <img
-                                    src={ASSETS.qrImage}
-                                    alt="QR code linking to the venue location"
-                                    className="h-36 w-36 rounded-md object-cover"
-                                />
+                        <Reveal delay={0.12}>
+                            {/* Arch-framed venue card */}
+                            <div className="relative w-[290px]">
+                                <div className="relative overflow-hidden rounded-t-[145px] rounded-b-[26px] border border-[#D8B26A]/50 bg-gradient-to-b from-[#9C8383]/70 to-[#4A3437]/92 px-6 pb-7 pt-9 shadow-[0_24px_60px_-22px_rgba(216,178,106,0.45)] backdrop-blur-sm">
+                                    <div className="pointer-events-none absolute inset-[6px] rounded-t-[135px] rounded-b-[18px] border border-[#EBD5A0]/25" />
+
+                                    <div className="relative flex flex-col items-center gap-3 text-center">
+                                        <Sparkle className="h-4 w-4 text-[#EBD5A0]" />
+
+                                        <h3
+                                            className="text-[28px] leading-tight text-[#F7F1EA]"
+                                            style={{ fontFamily: FONT_DISPLAY, fontWeight: 600 }}
+                                        >
+                                            Annamailayar Mahal
+                                        </h3>
+                                        <p
+                                            className="max-w-[210px] text-[11px] leading-relaxed text-[#F7F1EA]/75"
+                                            style={{ fontFamily: FONT_BODY }}
+                                        >
+                                            Udayar Kovil, Nagai Main Road
+                                        </p>
+
+                                        <div className="my-1 flex items-center gap-2">
+                                            <span
+                                                className="rounded-full border border-[#D8B26A]/45 bg-[#D8B26A]/12 px-3 py-1 text-[9px] uppercase tracking-[0.15em] text-[#F7F1EA]"
+                                                style={{ fontFamily: FONT_LABEL }}
+                                            >
+                                                11 Oct 2026
+                                            </span>
+                                            <span
+                                                className="rounded-full border border-[#D8B26A]/45 bg-[#D8B26A]/12 px-3 py-1 text-[9px] uppercase tracking-[0.15em] text-[#F7F1EA]"
+                                                style={{ fontFamily: FONT_LABEL }}
+                                            >
+                                                10:00 AM
+                                            </span>
+                                        </div>
+
+                                        <div className="rounded-xl border border-[#D8B26A]/45 bg-[#F7F1EA] p-2.5">
+                                            <img
+                                                src={ASSETS.qrImage}
+                                                alt="QR code linking to the venue location"
+                                                className="h-28 w-28 object-cover"
+                                            />
+                                        </div>
+                                        <span
+                                            className="text-[9px] uppercase tracking-[0.2em] text-[#F7F1EA]/55"
+                                            style={{ fontFamily: FONT_BODY }}
+                                        >
+                                            Scan for live location
+                                        </span>
+
+                                        <a
+                                            href={ASSETS.googleMapUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-1 flex items-center gap-2 rounded-full bg-gradient-to-r from-[#E4C58E] to-[#D8B26A] px-6 py-2.5 text-[11px] uppercase tracking-[0.2em] text-[#3A2C2C] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F7F1EA]"
+                                            style={{ fontFamily: FONT_LABEL }}
+                                        >
+                                            <FiMapPin className="h-3.5 w-3.5" />
+                                            Get Directions
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </Reveal>
-
-                        <Reveal delay={0.3}>
-                            <a
-                                href={ASSETS.googleMapUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 rounded-full bg-[#CBA135] px-6 py-2.5 text-xs font-medium uppercase tracking-[0.2em] text-[#0A2019] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0D98C]"
-                            >
-                                <FiMapPin className="h-3.5 w-3.5" />
-                                Get Directions
-                            </a>
                         </Reveal>
                     </section>
 
                     {/* ============================= SLIDE 4 — QUOTE + FOOTER ============================= */}
                     <section
                         ref={quoteRef}
-                        className="relative flex h-full min-h-screen w-full snap-start flex-col items-center justify-center gap-8 overflow-hidden bg-gradient-to-b from-[#0A2019] via-[#3A1220]/70 to-[#0A2019] px-6 py-16 text-center sm:min-h-full"
+                        className="relative flex h-full min-h-screen w-full snap-start flex-col items-center justify-center gap-8 overflow-hidden bg-gradient-to-b from-[#6F5757] via-[#4A3437] to-[#6F5757] px-6 py-16 text-center sm:min-h-full"
                     >
                         <FloatingGlow top="15%" left="15%" size={70} reduceMotion={reduceMotion} />
                         <FloatingGlow top="70%" left="85%" size={70} delay={2} reduceMotion={reduceMotion} />
@@ -727,20 +976,23 @@ const WeddingLanding: React.FC = () => {
                         <Reveal className="flex flex-col items-center gap-4">
                             <p
                                 dir="rtl"
-                                className="max-w-[280px] text-2xl leading-relaxed text-[#F0D98C]"
-                                style={{ fontFamily: "'Scheherazade New', serif" }}
+                                className="max-w-[280px] text-2xl leading-relaxed text-[#EBD5A0]"
+                                style={{ fontFamily: FONT_QURAN }}
                             >
                                 وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
                             </p>
                             <p
-                                className="max-w-[260px] text-xs italic leading-relaxed text-[#F6EFE0]/75"
-                                style={{ fontFamily: "'Poppins', sans-serif" }}
+                                className="max-w-[260px] text-xs italic leading-relaxed text-[#F7F1EA]/80"
+                                style={{ fontFamily: FONT_BODY }}
                             >
                                 &ldquo;Among His signs is that He created for you mates from among
                                 yourselves, that you may find tranquility in them, and He placed
                                 between you love and mercy.&rdquo;
                             </p>
-                            <span className="text-[10px] uppercase tracking-[0.25em] text-[#CBA135]/80">
+                            <span
+                                className="text-[10px] uppercase tracking-[0.25em] text-[#EBD5A0]/90"
+                                style={{ fontFamily: FONT_LABEL }}
+                            >
                                 Surah Ar-Rum, 30:21
                             </span>
                         </Reveal>
@@ -751,15 +1003,15 @@ const WeddingLanding: React.FC = () => {
 
                         <Reveal delay={0.35} className="flex flex-col items-center gap-2">
                             <p
-                                className="max-w-[260px] text-sm leading-relaxed text-[#F6EFE0]/85"
-                                style={{ fontFamily: "'Poppins', sans-serif" }}
+                                className="max-w-[260px] text-[13px] leading-relaxed text-[#F7F1EA]/85"
+                                style={{ fontFamily: FONT_BODY }}
                             >
                                 Thank you for visiting. We look forward to meeting you at the
                                 wedding.
                             </p>
                             <p
-                                className="mt-4 text-4xl text-[#F0D98C]"
-                                style={{ fontFamily: "'Great Vibes', cursive" }}
+                                className="mt-4 text-4xl text-[#EBD5A0]"
+                                style={{ fontFamily: FONT_SCRIPT }}
                             >
                                 Mohamed Anas &amp; Rukkiya Begam
                             </p>
@@ -782,7 +1034,7 @@ const WeddingLanding: React.FC = () => {
                                 className="group flex items-center gap-2 focus-visible:outline-none"
                             >
                                 <span
-                                    className={`h-2 w-2 rounded-full border border-[#CBA135] transition-all ${activeSection === item.id ? "bg-[#CBA135] scale-125" : "bg-transparent"
+                                    className={`h-2 w-2 rounded-full border border-[#EBD5A0] transition-all ${activeSection === item.id ? "scale-125 bg-[#EBD5A0]" : "bg-transparent"
                                         }`}
                                 />
                             </button>
@@ -795,13 +1047,13 @@ const WeddingLanding: React.FC = () => {
                         onClick={toggleMusic}
                         aria-label={musicOn ? "Pause music" : "Play music"}
                         aria-pressed={musicOn}
-                        className="pointer-events-auto absolute top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-[#CBA135]/60 bg-[#0A2019]/70 text-[#F0D98C] backdrop-blur transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0D98C]"
+                        className="pointer-events-auto absolute right-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-[#EBD5A0]/60 bg-[#4A3437]/70 text-[#F7F1EA] backdrop-blur transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EBD5A0]"
                     >
                         {musicOn ? <FiVolume2 className="h-4 w-4" /> : <FiVolumeX className="h-4 w-4" />}
                     </button>
                 </div>
 
-                <audio ref={audioRef} src={ASSETS.nasheedAudio} loop preload="auto" />
+                <audio ref={audioRef} src={ASSETS.nasheedAudio} loop preload="none" />
             </div>
         </div>
     );
