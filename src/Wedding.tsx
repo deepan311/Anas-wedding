@@ -681,14 +681,6 @@ const WeddingLanding: React.FC = () => {
                                                 <span className="absolute inset-0 rounded-full border border-[#EBD5A0]/40" />
                                                 <span className="absolute inset-2 rounded-full border border-[#EBD5A0]/20" />
                                             </button>
-                                            <motion.p
-                                                animate={reduceMotion ? {} : { opacity: [0.5, 1, 0.5] }}
-                                                transition={{ duration: 2.2, repeat: Infinity }}
-                                                className="text-[11px] uppercase tracking-[0.35em] text-[#F7F1EA]/85 drop-shadow-[0_1px_6px_rgba(74,52,55,0.6)]"
-                                                style={{ fontFamily: FONT_LABEL }}
-                                            >
-                                                Tap to open
-                                            </motion.p>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -734,9 +726,6 @@ const WeddingLanding: React.FC = () => {
                                                     >
                                                         Mohamed Anas
                                                     </h2>
-                                                    <span className="text-[11px] tracking-[0.2em] text-[#F7F1EA]/60">
-                                                        B.E.
-                                                    </span>
                                                 </motion.div>
 
                                                 <motion.div
@@ -750,7 +739,7 @@ const WeddingLanding: React.FC = () => {
                                                         className="-mt-3 text-xl italic text-[#EBD5A0]"
                                                         style={{ fontFamily: FONT_DISPLAY }}
                                                     >
-                                                        weds
+                                                        and
                                                     </span>
                                                 </motion.div>
 
@@ -772,9 +761,6 @@ const WeddingLanding: React.FC = () => {
                                                     >
                                                         Rukkiya Begam
                                                     </h2>
-                                                    <span className="text-[11px] tracking-[0.2em] text-[#F7F1EA]/60">
-                                                        B.Sc.
-                                                    </span>
                                                 </motion.div>
                                             </div>
                                         </motion.div>
@@ -789,7 +775,7 @@ const WeddingLanding: React.FC = () => {
                                         initial={{ opacity: 0, y: 12 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.9, delay: 1.6 }}
-                                        className="flex w-full flex-col items-center gap-4 pb-2"
+                                        className="mb-6 flex w-full flex-col items-center gap-4 pb-2"
                                     >
                                         <p
                                             className="text-[11px] tracking-[0.18em] text-[#F7F1EA]/85 drop-shadow-[0_1px_6px_rgba(74,52,55,0.6)]"
@@ -850,7 +836,7 @@ const WeddingLanding: React.FC = () => {
                                     className="text-[10px] uppercase tracking-[0.3em] text-[#EBD5A0]"
                                     style={{ fontFamily: FONT_LABEL }}
                                 >
-                                    Bride&rsquo;s Parents
+                                    Groom&rsquo;s Parents
                                 </span>
                                 <h3
                                     className="text-2xl leading-snug text-[#F7F1EA]"
@@ -865,7 +851,7 @@ const WeddingLanding: React.FC = () => {
                                     className="text-[10px] uppercase tracking-[0.3em] text-[#EBD5A0]"
                                     style={{ fontFamily: FONT_LABEL }}
                                 >
-                                    Groom&rsquo;s Parents
+                                    Bride&rsquo;s Parents
                                 </span>
                                 <h3
                                     className="text-2xl leading-snug text-[#F7F1EA]"
@@ -979,22 +965,15 @@ const WeddingLanding: React.FC = () => {
                                 className="max-w-[280px] text-2xl leading-relaxed text-[#EBD5A0]"
                                 style={{ fontFamily: FONT_QURAN }}
                             >
-                                وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+                                بَارَكَ اللهُ لَكُماَ وَبَارَكَ عَلَيْكُماَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ
                             </p>
                             <p
-                                className="max-w-[260px] text-xs italic leading-relaxed text-[#F7F1EA]/80"
+                                className="max-w-[260px] text-sm italic leading-relaxed text-[#F7F1EA]/80"
                                 style={{ fontFamily: FONT_BODY }}
                             >
-                                &ldquo;Among His signs is that He created for you mates from among
-                                yourselves, that you may find tranquility in them, and He placed
-                                between you love and mercy.&rdquo;
+                                &ldquo;Barakallahu lakuma wa baraka alaikuma, wa jama&apos;a bainakuma fi
+                                khair.&rdquo;
                             </p>
-                            <span
-                                className="text-[10px] uppercase tracking-[0.25em] text-[#EBD5A0]/90"
-                                style={{ fontFamily: FONT_LABEL }}
-                            >
-                                Surah Ar-Rum, 30:21
-                            </span>
                         </Reveal>
 
                         <Reveal delay={0.2}>
@@ -1010,10 +989,12 @@ const WeddingLanding: React.FC = () => {
                                 wedding.
                             </p>
                             <p
-                                className="mt-4 text-4xl text-[#EBD5A0]"
+                                className="mt-4 flex flex-col items-center gap-1 text-4xl leading-tight text-[#EBD5A0]"
                                 style={{ fontFamily: FONT_SCRIPT }}
                             >
-                                Mohamed Anas &amp; Rukkiya Begam
+                                <span>Mohamed Anas</span>
+                                <span className="text-2xl">&amp;</span>
+                                <span>Rukkiya Begam</span>
                             </p>
                         </Reveal>
                     </section>
