@@ -811,7 +811,7 @@ const WeddingLanding: React.FC = () => {
                     {/* ============================= SLIDE 2 — DATE + FAMILY ============================= */}
                     <section
                         ref={familyRef}
-                        className="relative flex h-full min-h-screen w-full snap-start flex-col items-center justify-center gap-6 overflow-hidden bg-gradient-to-b from-[#7C6060] via-[#8B6D6D] to-[#6F5757] px-6 py-10 sm:min-h-full"
+                        className="relative flex h-full min-h-screen w-full snap-start flex-col items-center justify-center gap-3 overflow-hidden bg-gradient-to-b from-[#7C6060] via-[#8B6D6D] to-[#6F5757] px-6 py-10 sm:min-h-full"
                     >
                         <FloatingGlow top="18%" left="82%" size={80} reduceMotion={reduceMotion} />
                         <FloatingGlow top="76%" left="10%" size={64} delay={1.8} reduceMotion={reduceMotion} />
@@ -830,7 +830,7 @@ const WeddingLanding: React.FC = () => {
                             </p>
                         </Reveal>
 
-                        <div className="flex w-full max-w-xs flex-col gap-5">
+                        <div className="flex w-full max-w-xs flex-col gap-3">
                             <Reveal delay={0.3} className="flex flex-col items-center gap-1.5 rounded-2xl border border-[#D8B26A]/30 bg-[#5A4646]/35 px-5 py-4 text-center backdrop-blur-sm">
                                 <span
                                     className="text-[10px] uppercase tracking-[0.3em] text-[#EBD5A0]"
